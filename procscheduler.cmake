@@ -21,6 +21,7 @@ macro    (procschedulerInit
         "interface/procjob_interface.h"
         "interface/procbase_interface.h"
         "interface/procinvocation_interface.h"
+        "interface/procinvocation_proc.h"
         "inmem/procfactory_inmem.h"
         "inmem/procinvocation_inmem.h"
         "inmem/procjob_inmem.h"
@@ -30,6 +31,7 @@ macro    (procschedulerInit
     set(PROCSCHEDULER_SOURCES
         "interface/procbase_interface.cc"
         "interface/procinvocation_interface.cc"
+        "interface/procinvocation_proc.cc"
         "interface/procjob_interface.cc"
         "inmem/procinvocation_inmem.cc"
         "inmem/procjob_inmem.cc"

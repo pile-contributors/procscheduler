@@ -128,10 +128,16 @@ void IProcJob::execute ()
         if (!setExecState (ExecutingStatus))
             break;
 
-        // inform them that they may start
-        foreach(IProcBase * iter, kids ()) {
-            IProcInvok * invok = iter->toInvok ();
-            invok->dependencyDone ();
+        QList<IProcBase *> kds = kids ();
+        if (kds.count () == 0) {
+            if (!setExecState (CompletedOkStatus))
+                break;
+        } else {
+            // inform them that they may start
+            foreach(IProcBase * iter, kids ()) {
+                IProcInvok * invok = iter->toInvok ();
+                invok->dependencyDone ();
+            }
         }
         b_ret = true;
         break;

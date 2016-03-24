@@ -27,7 +27,7 @@ IProcInvok::IProcInvok (IProcJob *job) :
     job_(job)
 {
     PROCSCHEDULER_TRACE_ENTRY;
-
+    job_->appendKid (this);
     PROCSCHEDULER_TRACE_EXIT;
 }
 /* ========================================================================= */

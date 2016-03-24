@@ -11,26 +11,26 @@
 #define GUARD_PROC_INVOK_INMEM_INCLUDE
 
 #include <procscheduler/procscheduler-config.h>
-#include <procscheduler/procinvocation_interface.h>
+#include <procscheduler/procinvocation_proc.h>
 #include <QString>
 #include <QList>
+#include <QProcess>
 
 
 //! An in-memory invocation.
-class PROCSCHEDULER_EXPORT ProcInvok : public IProcInvok {
+class PROCSCHEDULER_EXPORT ProcInvok : public ProcInvokProc {
 
 public:
 
     //! Default constructor.
     ProcInvok (
             IProcJob * job,
-            const QString &program,
-            const QStringList &arguments = QStringList(),
-            const QStringList &inputs = QStringList ());
+            const QString & program,
+            const QStringList & arguments = QStringList (),
+            const QStringList & inputs = QStringList ());
 
     //! Destructor.
     virtual ~ProcInvok ();
-
 
 
     /* == == == == == == == == == == == == == == == == == */
@@ -70,11 +70,9 @@ public:
     ///@}
     /* == == == == == == == == == == == == == == == == == */
 
+
 private:
     QString name_;
-    QString program_;
-    QStringList arguments_;
-    QStringList inputs_;
     Status sts_;
 };
 

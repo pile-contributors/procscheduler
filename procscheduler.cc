@@ -14,6 +14,10 @@
 #include "inmem/procfactory_inmem.h"
 #include "assert.h"
 
+#include <QDir>
+#include <QEventLoop>
+
+
 /**
  * @class ProcScheduler
  *
@@ -209,15 +213,23 @@ bool ProcScheduler::addInvokToQueue (IProcInvok *invok)
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
-void ProcScheduler::invokDone ()
+void ProcScheduler::waitForAll ()
+{
+    QEventLoop evl;
+    connect (this, &ProcScheduler::invokFinished,
+             &evl, &QEventLoop::quit);
+    while ((!running_.isEmpty ()) || (!invoks_.isEmpty ())) {
+        evl.exec();
+    }
+}
+/* ========================================================================= */
+
+/* ------------------------------------------------------------------------- */
+void ProcScheduler::ackInvokDone (IProcInvok *invok)
 {
     PROCSCHEDULER_TRACE_ENTRY;
     for (;;) {
-        IProcInvok *invok = qobject_cast<IProcInvok *> (sender());
-        if (invok == NULL) {
-            PROCSCHEDULER_DEBUGM("Sender to invokDone should be an IProcInvok\n");
-            break;
-        }
+
         disconnect (invok, &IProcInvok::done,
                     this, &ProcScheduler::invokDone);
 
@@ -240,6 +252,24 @@ void ProcScheduler::invokDone ()
         }
 
         emit invokFinished (invok);
+        break;
+    }
+    PROCSCHEDULER_TRACE_EXIT;
+}
+/* ========================================================================= */
+
+/* ------------------------------------------------------------------------- */
+void ProcScheduler::invokDone ()
+{
+    PROCSCHEDULER_TRACE_ENTRY;
+    for (;;) {
+        IProcInvok *invok = qobject_cast<IProcInvok *> (sender());
+        if (invok == NULL) {
+            PROCSCHEDULER_DEBUGM("Sender to invokDone should be an IProcInvok\n");
+            break;
+        }
+
+        ackInvokDone (invok);
 
         runFromQueue ();
         break;
@@ -257,6 +287,8 @@ void ProcScheduler::runFromQueue ()
         if (invoks_.isEmpty())
             break;
         IProcInvok *invok = invoks_.dequeue ();
+        invok->setWorkingDirectory (QDir::currentPath ());
+        invok->setProcessEnvironment (QProcessEnvironment::systemEnvironment ());
         if (!invok->setExecState (IProcBase::ExecutingStatus)) {
             PROCSCHEDULER_DEBUGM("Invocation refused to start\n");
             invok->setExecState (IProcBase::CompletedFailStatus);
@@ -269,6 +301,9 @@ void ProcScheduler::runFromQueue ()
 
         invok->execute ();
         emit invokStarted (invok);
+        if (invok->execState() != IProcBase::ExecutingStatus) {
+            ackInvokDone (invok);
+        }
     }
 
     PROCSCHEDULER_TRACE_EXIT;

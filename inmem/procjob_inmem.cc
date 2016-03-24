@@ -43,3 +43,58 @@ ProcJob::~ProcJob ()
     PROCSCHEDULER_TRACE_EXIT;
 }
 /* ========================================================================= */
+
+/* ------------------------------------------------------------------------- */
+bool ProcJob::insertKid (int position, IProcBase *pdef)
+{
+    PROCSCHEDULER_TRACE_ENTRY;
+    if (invoks_.contains (pdef))
+        return false;
+
+    if ((position == -1) || (position >= invoks_.count ())) {
+        invoks_.append (pdef);
+    } else {
+        invoks_.insert (position, pdef);
+    }
+
+    PROCSCHEDULER_TRACE_EXIT;
+    return true;
+}
+/* ========================================================================= */
+
+/* ------------------------------------------------------------------------- */
+bool ProcJob::removeKid (int position, IProcBase *pdef)
+{
+    PROCSCHEDULER_TRACE_ENTRY;
+    IProcBase * ivd = takeKid (position, pdef);
+    if (ivd == NULL)
+        return false;
+    delete ivd;
+    PROCSCHEDULER_TRACE_EXIT;
+    return true;
+}
+/* ========================================================================= */
+
+/* ------------------------------------------------------------------------- */
+IProcBase *ProcJob::takeKid (int position, IProcBase *pdef)
+{
+    PROCSCHEDULER_TRACE_ENTRY;
+    if (position < 0) {
+        if (pdef == NULL)
+            return NULL;
+        position = invoks_.indexOf (pdef);
+        if (position == -1)
+            return NULL;
+    } else if (position >= invoks_.count ()) {
+        return NULL;
+    } else if (pdef == NULL) {
+        pdef = invoks_.at (position);
+    } else {
+        assert(invoks_.at (position) == pdef);
+    }
+
+    invoks_.removeAt (position);
+    PROCSCHEDULER_TRACE_EXIT;
+    return pdef;
+}
+/* ========================================================================= */

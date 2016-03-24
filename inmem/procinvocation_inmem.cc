@@ -21,14 +21,14 @@
 ProcInvok::ProcInvok (
         IProcJob * job, const QString &program,
         const QStringList &arguments, const QStringList &inputs) :
-    IProcInvok (job),
+    ProcInvokProc (job),
     name_(QFileInfo (program).baseName ()),
-    program_(program),
-    arguments_(arguments),
-    inputs_(inputs),
     sts_(PreparingStatus)
 {
     PROCSCHEDULER_TRACE_ENTRY;
+    setProgram (program);
+    setArguments (arguments);
+    setInputs (inputs);
     PROCSCHEDULER_TRACE_EXIT;
 }
 /* ========================================================================= */
@@ -37,11 +37,6 @@ ProcInvok::ProcInvok (
 ProcInvok::~ProcInvok ()
 {
     PROCSCHEDULER_TRACE_ENTRY;
-
     PROCSCHEDULER_TRACE_EXIT;
 }
-/* ========================================================================= */
-
-/* ------------------------------------------------------------------------- */
-
 /* ========================================================================= */

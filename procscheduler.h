@@ -32,7 +32,7 @@ public:
     //! Destructor.
     virtual ~ProcScheduler ();
 
-    //! Creates a variable definition.
+    //! Creates a process invocation.
     IProcInvok *
     createProcInvok (
             IProcJob * parent,
@@ -110,17 +110,26 @@ public:
     addInvokToQueue (
             IProcInvok * invok);
 
+    //! Run all jobs inside an event loop and only return when all of them are done.
+    void
+    waitForAll ();
+
 protected:
 
     //! Takes program invocations from queue and runs them.
     void
     runFromQueue();
 
+    //! The invocation was finished and the queue is updated.
+    void
+    ackInvokDone (
+            IProcInvok *invok);
+
 private slots:
 
     //! Informed here about a program that exited.
     void
-    invokDone();
+    invokDone ();
 
 signals:
 

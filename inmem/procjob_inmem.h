@@ -113,26 +113,20 @@ public:
     //! Insert an item inside this node.
     virtual bool
     insertKid (
-            int /* position */,
-            IProcBase * /* pdef */) {
-        return false;
-    }
+            int position,
+            IProcBase * pdef);
 
     //! Remove an item from inside this node and delete it.
     virtual bool
     removeKid (
-            int /* position */ = -1,
-            IProcBase * /* pdef */ = NULL) {
-        return false;
-    }
+            int position = -1,
+            IProcBase * pdef = NULL);
 
     //! Remove an item inside this node and return it to the caller.
     virtual IProcBase *
     takeKid (
-            int /* position */ = -1,
-            IProcBase * /* pdef */ = NULL) {
-        return NULL;
-    }
+            int position = -1,
+            IProcBase * pdef = NULL);
 
     ///@}
     /* == == == == == == == == == == == == == == == == == */

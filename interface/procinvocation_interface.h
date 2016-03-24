@@ -14,6 +14,7 @@
 #include <procscheduler/procbase_interface.h>
 #include <QString>
 #include <QList>
+#include <QProcess>
 
 class IProcInvokFactory;
 class IProcJob;
@@ -48,7 +49,7 @@ protected:
     }
 
     /* == == == == == == == == == == == == == == == == == */
-    /** @name IProcInvok interface
+    /** @name IProcBase interface
      */
     ///@{
 public:
@@ -78,6 +79,63 @@ public:
 
     ///@}
     /* == == == == == == == == == == == == == == == == == */
+
+
+    /* == == == == == == == == == == == == == == == == == */
+    /** @name IProcInvok interface
+     */
+    ///@{
+public:
+
+
+    //! .
+    virtual QString
+    program () const = 0;
+
+    //! .
+    virtual QStringList
+    arguments () const = 0;
+
+    //! .
+    virtual QStringList
+    inputs () const = 0;
+
+    //! .
+    virtual QString
+    workingDirectory () const = 0;
+
+    //! .
+    virtual QProcessEnvironment
+    processEnvironment () const = 0;
+
+    //! .
+    virtual void
+    setProgram (
+            const QString & program) = 0;
+
+    //! .
+    virtual void
+    setArguments (
+            const QStringList & arguments) = 0;
+
+    //! .
+    virtual void
+    setInputs (
+            const QStringList & arguments) = 0;
+
+    //! .
+    virtual void
+    setWorkingDirectory (
+            const QString &dir) = 0;
+
+    //! .
+    virtual void
+    setProcessEnvironment (
+            const QProcessEnvironment &environment) = 0;
+
+    ///@}
+    /* == == == == == == == == == == == == == == == == == */
+
 
 private:
     IProcJob * job_;
