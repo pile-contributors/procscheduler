@@ -8,7 +8,7 @@
  */
 
 #include "procjob_inmem.h"
-#include "procscheduler-private.h"
+#include "../procscheduler-private.h"
 #include "assert.h"
 
 /**

@@ -8,7 +8,7 @@
  */
 
 #include "procbase_interface.h"
-#include "procscheduler-private.h"
+#include "../procscheduler-private.h"
 #include "procjob_interface.h"
 #include "procinvocation_interface.h"
 #include <QStringList>

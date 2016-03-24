@@ -8,7 +8,7 @@
  */
 
 #include "procinvocation_inmem.h"
-#include "procscheduler-private.h"
+#include "../procscheduler-private.h"
 #include "assert.h"
 #include <QFileInfo>
 
