@@ -12,6 +12,7 @@
 #include "../procscheduler-private.h"
 #include "../procscheduler.h"
 #include <QStringList>
+#include <procrun/procrundata.h>
 
 /**
  * @class IProcInvok
@@ -41,6 +42,16 @@ IProcInvok::~IProcInvok()
     PROCSCHEDULER_TRACE_ENTRY;
 
     PROCSCHEDULER_TRACE_EXIT;
+}
+/* ========================================================================= */
+
+/* ------------------------------------------------------------------------- */
+void IProcInvok::setProcData (const ProcRunData & data)
+{
+    setProgram (data.s_program_);
+    setArguments (data.sl_arguments_);
+    setInputs (data.sl_input_);
+    setWorkingDirectory (data.s_wrk_dir_);
 }
 /* ========================================================================= */
 

@@ -29,6 +29,11 @@ public:
             const QStringList & arguments = QStringList (),
             const QStringList & inputs = QStringList ());
 
+    //! Constructor using standard data structure.
+    ProcInvok (
+            IProcJob * job,
+            const ProcRunData & data);
+
     //! Destructor.
     virtual ~ProcInvok ();
 

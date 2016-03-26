@@ -11,6 +11,7 @@
 #include "../procscheduler-private.h"
 #include "assert.h"
 #include <QFileInfo>
+#include <procrun/procrundata.h>
 
 /**
  * @class ProcInvok
@@ -30,6 +31,16 @@ ProcInvok::ProcInvok (
     setArguments (arguments);
     setInputs (inputs);
     PROCSCHEDULER_TRACE_EXIT;
+}
+/* ========================================================================= */
+
+/* ------------------------------------------------------------------------- */
+ProcInvok::ProcInvok (IProcJob *job, const ProcRunData &data) :
+    ProcInvokProc (job),
+    name_(QFileInfo (data.s_program_).baseName ()),
+    sts_(PreparingStatus)
+{
+    setProcData (data);
 }
 /* ========================================================================= */
 

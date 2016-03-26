@@ -18,6 +18,7 @@
 
 class IProcInvokFactory;
 class IProcJob;
+struct ProcRunData;
 
 //! Interface for an invocation.
 class PROCSCHEDULER_EXPORT IProcInvok : public IProcBase {
@@ -38,6 +39,11 @@ public:
     job () const {
         return job_;
     }
+
+    //! Set all parameters from standard data structure.
+    void
+    setProcData (
+            const ProcRunData & data);
 
 protected:
 
