@@ -13,7 +13,7 @@ once these are satisfied, it is added
 to the internal queue. The user may customize the number or instances that
 can run simultaneously.
 
-The dependency tree is builded by using the signal - slot mechanism.
-Each time a ProcInvocation or ProcJob is done it emmits a signal.
+The dependency tree is build by using the signal - slot mechanism.
+Each time a ProcInvocation or ProcJob is done it emits a signal.
 The dependent parties then examine the status of all other dependencies
 and, if all are completed, adds itself to the queue.
