@@ -43,7 +43,6 @@ public:
     //! Creates a job.
     IProcJob *
     createProcJob (
-            ProcScheduler * parent,
             const QString & name);
 
 

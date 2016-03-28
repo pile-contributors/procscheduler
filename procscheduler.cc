@@ -70,9 +70,9 @@ IProcInvok * ProcScheduler::createProcInvok (
 
 /* ------------------------------------------------------------------------- */
 IProcJob * ProcScheduler::createProcJob (
-        ProcScheduler *parent, const QString &name)
+        const QString &name)
 {
-    IProcJob * result = job_factory_->createProcJob (parent, name);
+    IProcJob * result = job_factory_->createProcJob (this, name);
     if (result != NULL) {
         appendJob (result);
         emit jobCreated (result);
