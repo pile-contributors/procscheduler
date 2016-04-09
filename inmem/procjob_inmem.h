@@ -16,15 +16,15 @@
 #include <QList>
 
 
-//! An evaluation context that may contain a number of variables and their values.
+//! A job that keeps all the data in simple memory structures.
 class PROCSCHEDULER_EXPORT ProcJob : public IProcJob {
 
 public:
 
-    //! Default constructor.
+    //! Constructor.
     ProcJob (
             ProcScheduler * mng,
-            const QString & name);
+            const QString & name = QString ());
 
     //! Destructor.
     virtual ~ProcJob ();

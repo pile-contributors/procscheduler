@@ -18,7 +18,7 @@
 #include <QProcess>
 
 
-//! An extends the interface with an embedded QProcess.
+//! Extends the interface with an embedded QProcess.
 class PROCSCHEDULER_EXPORT ProcInvokProc : public IProcInvok {
     Q_OBJECT
 public:
@@ -160,33 +160,33 @@ public:
     /* == == == == == == == == == == == == == == == == == */
 
 
-private slots:
+protected slots:
 
     //! Some output coming out of error channel.
-    void
+    virtual void
     readyReadStandardErrorSlot ();
 
     //! Some output coming out of output channel.
-    void
+    virtual void
     readyReadStandardOutputSlot ();
 
     //! Connected to keep the started/not started state.
-    void
+    virtual void
     startedSlot ();
 
     //! Connected to keep the started/not started state.
-    void
+    virtual void
     finishedSlot (
             int exitCode,
             QProcess::ExitStatus exitStatus);
 
     //! Track this slot to accumulate the list of states.
-    void
+    virtual void
     stateChangedSlot (
             QProcess::ProcessState newState);
 
     //! Accumulate errors here.
-    void
+    virtual void
     errorSlot (
             QProcess::ProcessError error);
 

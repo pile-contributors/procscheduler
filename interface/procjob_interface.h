@@ -18,7 +18,7 @@
 class IProcJobFactory;
 class IProcInvok;
 
-//! Interface for an invocation.
+//! Interface for a job that groups togheter one or more program invocations.
 class PROCSCHEDULER_EXPORT IProcJob : public IProcBase {
     Q_OBJECT
 public:

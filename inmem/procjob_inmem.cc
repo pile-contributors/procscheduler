@@ -14,6 +14,8 @@
 /**
  * @class ProcJob
  *
+ * The instance owns all invocations and it will delete them
+ * in the destructor.
  */
 
 /* ------------------------------------------------------------------------- */

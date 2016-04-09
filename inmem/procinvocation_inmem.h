@@ -17,7 +17,7 @@
 #include <QProcess>
 
 
-//! An in-memory invocation.
+//! An in-memory invocation based on QProcess.
 class PROCSCHEDULER_EXPORT ProcInvok : public ProcInvokProc {
 
 public:

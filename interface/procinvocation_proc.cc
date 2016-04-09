@@ -15,6 +15,10 @@
 /**
  * @class ProcInvok
  *
+ * Process invocations are all based on IProcInvok interface.
+ * This class extends the base IProcInvok by adding an
+ * embedded QProcess, by tracking the times it started
+ * and ended and the list of states and errors it experienced.
  */
 
 /* ------------------------------------------------------------------------- */
@@ -69,6 +73,9 @@ ProcInvokProc::~ProcInvokProc ()
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
+/**
+ * Default implementation simply adds the error to internal list.
+ */
 void ProcInvokProc::errorSlot (QProcess::ProcessError error)
 {
     PROCSCHEDULER_TRACE_ENTRY;
@@ -118,6 +125,9 @@ void ProcInvokProc::startedSlot ()
 /* ========================================================================= */
 
 /* ------------------------------------------------------------------------- */
+/**
+ * Default implementation simply adds the state to internal list.
+ */
 void ProcInvokProc::stateChangedSlot (QProcess::ProcessState newState)
 {
     PROCSCHEDULER_TRACE_ENTRY;
